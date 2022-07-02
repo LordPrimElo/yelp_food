@@ -1,0 +1,73 @@
+<%- include("partials/header") %>
+	<div class="container">
+		<h1>ADD NEW FOOD ITEM!</h1>
+		<form action="/foods" method="POST">
+	  <div class="mb-3">
+		  <div class="form-group">
+		<label for="food_item" class="form-label">Food Item</label>
+		<input type="text" class="form-control" id="food_item" name="title" placeholder="Eg. Pizza" autofocus required>	  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="description" class="form-label">Description</label>
+		<input type="text" class="form-control" id="description" name="description" placeholder="Share with others how you feel about that food item!" required>
+			  
+		  </div>
+		 
+		  <div class="form-group">
+		  <label for="flavours" class="form-label">Flavour(s)</label>
+		<input type="text" class="form-control" id="flavours" name="flavours" placeholder="Eg. Savoury, Spicy" required>
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="genre" class="form-label">Genre</label>
+			<select class="form-control" id="genre" name="genre">
+				<option disabled selected>-- Choose Below --</option>
+				<option>Indian</option>
+				<option>Thai</option>
+				<option>Italian</option>
+				<option>American</option>
+				<option>Carribean</option>
+				<option>Chinese</option>
+				<option>Continental</option>
+		  </select>
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="prepTime" class="form-label">Prep Time (In Minutes)</label>
+		<input type="number" class="form-control" id="prepTime" name="prepTime" placeholder="Eg. 60" required>
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="ingredients" class="form-label">Ingredients</label>
+		<input type="text" class="form-control" id="ingredients" name="ingredients" placeholder="Eg. Tomato sauce, Cheese, Flatbread" required>
+		  
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="calories" class="form-label">Calories (kCal)</label>
+		<input type="number" class="form-control" id="calories" name="calories" placeholder="Eg. 1600" required>
+			  
+		  </div>
+		  
+		  <div class="form-group form-check">
+		<input type="checkbox" class="form-check-input" name="isHealthy" id="isHealthy">
+		<label class="form-label" for="isHealthy">Is this Healthy?</label>  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="image" class="form-label">Link to Image</label>
+		<input type="text" class="form-control" id="image" name="image" placeholder="https://www.myimageplace.com/myimage.png" required>
+			  
+		  </div>
+	
+		  <br>
+		  
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+<%- include("partials/footer") %>

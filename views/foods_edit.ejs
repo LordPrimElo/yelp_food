@@ -1,0 +1,73 @@
+<%- include("partials/header") %>
+	<div class="container">
+		<h1>ADD NEW FOOD ITEM!</h1>
+		<form action="/foods/<%= food._id %>?_method=PUT" method="POST">
+	  <div class="mb-3">
+		  <div class="form-group">
+		<label for="food_item" class="form-label">Food Item</label>
+		<input type="text" class="form-control" id="food_item" name="title" value="<%= food.title %>" required>	  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="description" class="form-label">Description</label>
+		<input type="text" class="form-control" id="description" name="description" "Share with others how you feel about that food item!" value="<%= food.description %>" required>
+			  
+		  </div>
+		 
+		  <div class="form-group">
+		  <label for="flavours" class="form-label">Flavour(s)</label>
+		<input type="text" class="form-control" id="flavours" name="flavours" "Eg. Savoury, Spicy" value="<%= food.flavours %>" required>
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="genre" class="form-label">Genre</label>
+			<select class="form-control" id="genre" name="genre">
+				<option disabled>-- Choose Below --</option>
+				<option <%= food.genre === "indian" 	? "selected" : "" %> >Indian</option>
+				<option <%= food.genre === "thai" 		? "selected" : "" %> >Thai</option>
+				<option <%= food.genre === "italian" 	? "selected" : "" %> >Italian</option>
+				<option <%= food.genre === "american" 	? "selected" : "" %> >American</option>
+				<option <%= food.genre === "carribean" 	? "selected" : "" %> >Carribean</option>
+				<option <%= food.genre === "chinese" 	? "selected" : "" %> >Chinese</option>
+				<option <%= food.genre === "continental" ? "selected" : "" %> >Continental</option>
+		  </select>
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="prepTime" class="form-label">Prep Time (In Minutes)</label>
+		<input type="number" class="form-control" id="prepTime" name="prepTime" value="<%= food.prepTime %>" required>
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="ingredients" class="form-label">Ingredients</label>
+		<input type="text" class="form-control" id="ingredients" name="ingredients" value="<%= food.ingredients %>" required>
+		  
+			  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="calories" class="form-label">Calories (kCal)</label>
+		<input type="number" class="form-control" id="calories" name="calories" value="<%= food.calories %>" required>
+			  
+		  </div>
+		  
+		  <div class="form-group form-check">
+		<input type="checkbox" class="form-check-input" name="isHealthy" id="isHealthy" <%= food.isHealthy ? "checked" : "" %>>
+		<label class="form-label" for="isHealthy">Is this Healthy?</label>  
+		  </div>
+		  
+		  <div class="form-group">
+		  <label for="image" class="form-label">Link to Image</label>
+		<input type="text" class="form-control" id="image" name="image" value="<%= food.image %>" required>
+			  
+		  </div>
+	
+		  <br>
+		  
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+<%- include("partials/footer") %>

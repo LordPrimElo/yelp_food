@@ -1,0 +1,17 @@
+<%- include("partials/header") %>
+
+<div class="container">
+
+	<div class="row mt-3">
+	<% foodstuffs.forEach((food) => { %>
+			<div class="card mx-3 m-3">
+				<a href="/foods/<%= food._id %>">
+					<img class="card-img-top card-img" src="<%= food.image %>" alt="Picture of the food">
+				</a>
+				<h3 class="card-title my-3"><%= food.title %></h3>
+				<p class="card-text mb-3 mx-3"><%= food.description %></p>
+			</div>	
+		<% }) %>
+	</div>
+</div>
+<%- include("partials/footer") %>
