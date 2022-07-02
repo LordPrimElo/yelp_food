@@ -19,29 +19,30 @@
             <li><a class="dropdown-item" href="#">Indian</a></li>
             <li><a class="dropdown-item" href="#">Thai</a></li>
             <li><a class="dropdown-item" href="#">Italian</a></li>
-			<li><a class="dropdown-item" href="#">American</a></li>
-			<li><a class="dropdown-item" href="#">Carribean</a></li>
-			<li><a class="dropdown-item" href="#">Chinese</a></li>
-			<li><a class="dropdown-item" href="#">Continental</a></li>
+            <li><a class="dropdown-item" href="#">American</a></li>
+            <li><a class="dropdown-item" href="#">Carribean</a></li>
+            <li><a class="dropdown-item" href="#">Chinese</a></li>
+            <li><a class="dropdown-item" href="#">Continental</a></li>
           </ul>
         </li>
-		 <li class="nav-item">
-          <a class="nav-link" href="/foods/new">Add New</a>
-        </li>
+		 
 		  <% if (user) { %>
-		  	 <li class="nav-item">
-          		<a class="nav-link" href="/logout">Logout</a>
-        	</li>
-		   <li class="nav-item">
-			  	<a class="nav-link" href="#"><%= user.username %></a>
-			</li>
-		  <% } else { %>
-			  <li class="nav-item">
-			  	<a class="nav-link" href="/login">Login</a>
-			</li>
-			  <li class="nav-item">
-			  	<a class="nav-link" href="/signup">Sign Up</a>
-			</li>
+          <li class="nav-item">
+            <a class="nav-link" href="/foods/new">Add New</a>
+          </li>
+          <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><%= user.username %></a>
+        </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Sign Up</a>
+        </li>
 		  <% } %>
 		 
 		  
