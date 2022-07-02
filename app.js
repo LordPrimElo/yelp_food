@@ -15,7 +15,12 @@ const expressSession = require("express-session")
 const passportLocal = require("passport-local")
 
 // Config Imports
-const config = require("./config")
+try {
+	var config = require("./config")
+} catch (e) {
+	console.log("Could not import config. Probable Cause: NOT WORKING LOCALLY, ya dum dum")
+	console.log(e)
+}
 
 // Route Imports
 const foodRoutes = require("./routes/foods")
@@ -44,7 +49,15 @@ app.use(morgan("tiny"))
 // CONFIGRATION
 // =============================================
 // Connect to DB
-mongoose.connect(config.db.connection)
+try {
+	mongoose.connect(config.db.connection)
+} catch (e) {
+	console.log("Could not connect using config. Probable Cause: NOT WORKING LOCALLY, dumbass")
+	console.log(e)
+	mongoose.connect(process.env.DB_CONNECTION_STRING)
+}
+
+mongoose.Promise = global.Promise
 
 // Express Config
 app.set("view engine", "ejs")
@@ -52,7 +65,7 @@ app.use(express.static("public"))
 
 // Express Session Config
 app.use(expressSession({
-	secret: "53vb36768769876897689876098rtybp[547p[6[6;b7[o87[7o.5bbbbbbbbi.76io[/8bbbb5i.[78i[bbi57i.9b5p7o.[iok907*(78876(y87586586*(7(8soaiu0w9ot3o4il6876.474/9[76]))))]]]]]]]]]",
+	secret: process.env.ES_SECRET || config.expressSession.secret,
 	resave: false,
 	saveUninitialized: false
 }))
@@ -108,6 +121,6 @@ app.post("/signup", async (req, res) => {
 // =============================================
 // LISTEN
 // =============================================
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
 	console.log("Yelp ripoff runnin' boys!")
 })
