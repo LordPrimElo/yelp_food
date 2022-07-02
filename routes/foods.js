@@ -67,6 +67,21 @@ router.get("/search", async (req, res) => {
 })
 
 
+// Genre (Show but *different*)
+router.get("/genre/:genre", async (req, res) => {
+	try {
+		const validGenres = ["indian", "thai", "italian", "american", "carribean", "chinese", "continental"]
+
+		if (validGenres.includes(req.params.genre.toLowerCase())) {
+			const foodstuffs = await foodItem.find({genre: req.params.genre}).exec()
+			res.render("foodstuffs", {foodstuffs})
+		} else {
+			res.send("nah fam, we don't got dat food here")
+		}
+	} catch (e) {console.log(e)}
+})
+
+
 // Show
 router.get("/:id", async (req, res) => {
 	
