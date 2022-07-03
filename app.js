@@ -88,11 +88,14 @@ passport.deserializeUser(User.deserializeUser())// Decodes data from the session
 const LocalStrategy = passportLocal.Strategy
 passport.use(new LocalStrategy(User.authenticate()))
 
-// Current User Middleware Config
+// State Config
 app.use((req, res, next) => {
 	res.locals.user = req.user
+	res.locals.errorMessage = req.flash("error")
+	res.locals.successMessage = req.flash("success")
 	next()
 })
+
 
 
 // Routes Config
