@@ -1,6 +1,5 @@
 const express = require("express")
 const router = express.Router()
-const app = express()
 const User = ("../models/user")
 const passport = require("passport")
 const passportLocal = require("passport-local")
@@ -13,7 +12,7 @@ router.get("/signup", (req, res) => {
 
 // Login Show
 router.get("/login", (req, res) => {
-	res.render("login")
+	res.render("login", {message: req.flash("error")})
 })
 
 // Login

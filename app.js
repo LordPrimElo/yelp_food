@@ -94,6 +94,7 @@ app.use((req, res, next) => {
 	next()
 })
 
+
 // Routes Config
 app.use("/foods", foodRoutes)
 app.use("/foods/:id/comments", commentRoutes)
