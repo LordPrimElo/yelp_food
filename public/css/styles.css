@@ -30,3 +30,36 @@
 	max-width: 80%;
 	border-radius: 2rem;
 }
+
+.landing-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 80%;
+	font-family: "Josefin Sans";
+	margin: 0% 10%;
+	flex-wrap: none;
+}
+
+.landing-container h1 {
+	font-weight: 500;
+	font-size: 8rem;
+}
+
+.landing-container p {
+	font-weight: 300;
+	font-style: italic;
+	font-size: 3rem;
+	margin-top: -1.5rem;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	border: black solid 2px;
+}
+
+.landing-container div {
+	display: flex;
+	text-align: center;
+
+}
+
