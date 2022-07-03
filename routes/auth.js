@@ -16,15 +16,28 @@ router.get("/login", (req, res) => {
 })
 
 // Login
-router.post("/login", passport.authenticate("local", {
-	successRedirect: "/foods",
-	failureRedirect: "/login"
-}))
+router.post("/login", passport.authenticate("local", {failureRedirect: "/login", failureFlash: true, successFlash: "Logged you in successfully! :D"}), (req, res) => {
+	try {
+		res.redirect("/foods")
+	} catch (err) {
+		req.flash("error", "Couldn't log you in :( \n Please try again!")
+		res.redirect("/back")
+		console.log(err)
+
+	}
+})
+
 
 // Logout
 router.get("/logout", (req, res) => {
-	req.logout(err => res.send(err))
-	res.redirect("/foods")
+	try {
+		req.logout(err => res.send(err))
+		req.flash("success", "Logged you out successfully! :D")
+		res.redirect("/back")
+	} catch (err) {
+		req.flash("error", "Couldn't log you out :( \n Please try again!")
+		req.redirect("/back")
+	}
 })
 
 

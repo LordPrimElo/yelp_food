@@ -42,9 +42,11 @@ router.post("/", isLoggedIn, async (req, res) => {
 	
 	try {
 		const food_item = await foodItem.create(newFoodItem)
+		req.flash("success", `Food Item Added - ${newFoodItem.title} created! Nice job!`)
 		res.redirect("/foods/" + food_item._id)
 	} catch (err) {
-		res.send("create route err" + err)
+		req.flash("error", "Couldn't add food item, please try again.")
+		res.redirect("/back")
 	}	
 })
 
@@ -97,10 +99,8 @@ router.get("/:id", async (req, res) => {
 // Edit
 router.get("/:id/edit", isLoggedIn, isFoodOwner, async (req, res) => {
 	const food = await foodItem.findById(req.params.id).exec()
+	
 	res.render("foods_edit", {food})
-	
-	
-	
 		
 })
 
@@ -122,9 +122,13 @@ router.put("/:id", isLoggedIn, isFoodOwner, async (req, res) => {
 		}
 
 	try {
-		const updatedFooditem = await foodItem.findByIdAndUpdate(req.params.id, updatedNewFoodItem, {new: true}).exec()
+		await foodItem.findByIdAndUpdate(req.params.id, updatedNewFoodItem, {new: true}).exec()
+		req.flash("success", `${updatedNewFoodItem.title} editted! Let's go!`)
 		res.redirect("/foods/"+ req.params.id)
-	} catch (err) {res.send( "UPDATE" + err)}
+	} catch (err) {
+		req.flash("error", "Couldn't edit the food item, please try again!")
+		res.redirect("back")
+	}
 	
 })
 
@@ -133,9 +137,13 @@ router.delete("/:id", isLoggedIn, isFoodOwner, async (req, res) => {
 	try {
 		const deletedFoodItem = await foodItem.findByIdAndDelete(req.params.id).exec()
 		console.log("Deleted: ", deletedFoodItem)
+		req.flash("success", "You have become Death, the destroyer of food items...")
 		res.redirect("/foods")
-	} catch (err) {res.send( err)}
-})
+		
+	} catch (err) {
+		req.flash("error", "Couldn't delete food item, please try again!")
+		res.redirect("/back")
+}})
 
 
 module.exports = router

@@ -113,13 +113,16 @@ app.post("/signup", async (req, res) => {
 			email: req.body.email
 			}), req.body.password)
 		
-		console.log(newUser)
-		
 		passport.authenticate("local")(req, res, () => {
-			res.redirect("/foods")
+				req.flash("success", `Signed you up as ${newUser.username}! :D`)
+				res.redirect("/foods")
 		})
+
+		
 		
 	} catch (err) {
+		req.flash("error", `Couldn't sign you up :( \n Please try again!`)
+		res.redirect("/foods")
 		console.log(err)
 	}
 })

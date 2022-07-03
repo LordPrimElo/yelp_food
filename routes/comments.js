@@ -23,10 +23,12 @@ router.post("/", isLoggedIn, async (req, res) => {
 		foodId: req.body.foodId
 		})
 
+		req.flash("success", `Comment Added - ${comment.text} I respect your opinions, dude.` )
+
 		res.redirect(`/foods/${req.body.foodId}`)
 		
 	} catch (err) {
-		console.log(err)
+		req.flash("error", "Couldn't add comment, please try again!")
 		res.redirect(`/foods/${req.body.foodId}`)
 	}
 })
@@ -35,6 +37,8 @@ router.post("/", isLoggedIn, async (req, res) => {
 router.get("/:commentId/edit", isLoggedIn, isCommentOwner, async (req, res) => {
 		const comment = await Comment.findById(req.params.commentId).exec()
 		const food = await foodItem.findById(req.params.id).exec()
+
+		
 		
 		res.render("comments_edit", {comment, food})
 		
@@ -44,21 +48,27 @@ router.get("/:commentId/edit", isLoggedIn, isCommentOwner, async (req, res) => {
 router.put("/:commentId", isLoggedIn, isCommentOwner, async (req, res) => {
 	try {
 		const comment = await Comment.findByIdAndUpdate(req.params.commentId, {text: req.body.text}, {new: true})
+		req.flash("success", `Comment editted!`)
 		res.redirect(`/foods/${req.params.id}`)
 		
 		
 	} catch (err) {
-		console.log("Brokkkkkeeeeeeeeeeeeeeeeeeeeeee comment PUT")
+		req.flash("error", "Couldn't edit comment, please try again.")
+		res.redirect("/back")
 	}
 })
 
 // Delete
 router.delete("/:commentId", isLoggedIn, isCommentOwner, async (req, res) => {
 	try {
-		const comment = await Comment.findByIdAndDelete(req.params.commentId)
+		await Comment.findByIdAndDelete(req.params.commentId)
+		req.flash("success", `Holy Moly! You have deleted your comment!`)
 		res.redirect("/foods/" + req.params.id)
+
+
 	} catch (err) {
-		res.send("BROKENAGIAN NAGFIDPGJDK DELETE ROPUTEEJITUH " + err)
+		req.flash("error", "Couldn't delete comment, please try again!")
+		res.redirect("/back")
 	}
 })
 
