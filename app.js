@@ -10,9 +10,9 @@ const mongoose = require('mongoose');
 const methodOverride = require("method-override")
 const morgan = require("morgan")
 const passport = require("passport")
-const localStrategy = require("passport-local")
 const expressSession = require("express-session")
 const passportLocal = require("passport-local")
+const flash = require("connect-flash")
 
 // Config Imports
 try {
@@ -76,6 +76,9 @@ app.use(bodyParser.json())
 
 // Method Override Config
 app.use(methodOverride("_method"))
+
+// Connect Flash Config
+app.use(flash())
 
 // Passport Config
 app.use(passport.initialize())
