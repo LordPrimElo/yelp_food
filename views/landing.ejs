@@ -6,7 +6,37 @@
 			
 		</div>
 		<div>
-			<p>Nothing more. Nothing less.</p>
+			<p id="landing-p">Nothing more. Nothing less.</p>
 		</div>
 </div>
+<script>
+	const body = document.querySelector("body")
+	const div = document.getElementById("food-logo-div")
+	const img = document.querySelectorAll("img")[1]
+	const p = document.getElementById("landing-p")
+	const nav = document.querySelector("nav")
+
+	img.addEventListener("mouseover", function() {
+		console.log(img.getAttribute("src"))
+		img.setAttribute("src", "/img/FoodLogoWhite.png")
+		body.style.backgroundColor = "black"
+		p.style.borderColor = "white"
+		p.style.color = "white"
+		p.style.fontSize = "2.5rem"
+		nav.classList.add("navbar-dark", "bg-dark")
+		console.log(nav)
+
+	})
+
+	img.addEventListener("mouseleave", function() {
+		console.log(img.getAttribute("src"))
+		img.setAttribute("src", "/img/FoodLogo.png")
+		body.style.backgroundColor = "white"
+		p.style.borderColor = "black"
+		p.style.color = "black"
+		p.style.fontSize = "3rem"
+		nav.classList.remove("navbar-dark", "bg-dark")
+	})
+
+</script>
 <%- include("partials/footer") %>
