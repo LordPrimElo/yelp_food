@@ -75,11 +75,7 @@ nav {
 }
 
 .landing-container img {
-<<<<<<< HEAD
 	transition: 1.5s;
-=======
-	transition: 1s;
->>>>>>> refs/remotes/origin/master
 }
 
 .landing-container img:hover {
