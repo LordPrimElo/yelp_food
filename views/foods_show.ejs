@@ -57,16 +57,16 @@
 			</div>
 
 		</div>
-		<div class="row show_comment-header mt-3">
-			COMMENT HEADER
-		</div>
-		<a href="#">
-			<div>
-				<form action="/foods/<%= food._id %>/comments/new">
-					<button class="btn btn-success btn-lg my-4">Add Comment</button>
-				</form>
+		<div class="row">
+			<form action="/foods/<%= food._id %>/comments/new" class="col-3">
+				<button class="btn btn-success btn-lg my-4">Add Comment</button>
+			</form>
+			<div class="col-2">
+				<button id="foods_show-upvote_btn" class="btn btn-outline-success btm-lg mt-3">+</button>
+				<span id="food_show-vote_score" class="mx-2">10</span>
+				<button id="foods_show-downvote_btn" class="btn btn-outline-danger btm-lg mt-3">-</button>
 			</div>
-		</a>
+		</div>
 		<% comments.forEach((comment) => { %>
 			<div class="row show_comment-container py-2 border">
 				<div class="col-2 border-end my-auto mx-auto">
