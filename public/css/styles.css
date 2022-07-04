@@ -66,14 +66,11 @@
 }
 
 .landing-container img {
-	width: 500px;
 	transition: 1s;
 }
 
 .landing-container img:hover {
-	width: 750px;
+	width: 650px;
 	height: auto;
 
 }
-
-
