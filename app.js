@@ -31,7 +31,8 @@ const authRoutes = require("./routes/auth")
 // Model Imports
 const foodItem = require("./models/food_item")
 const Comment = require("./models/comment")
-const User = require("./models/user")
+const User = require("./models/user");
+const { deleteMany } = require("./models/food_item");
 
 
 // =============================================

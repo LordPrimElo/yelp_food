@@ -40,6 +40,12 @@ nav {
 }
 
 
+.landing-p-dark {
+	border-color: white !important; 
+	color: white;
+	font-size: 2.5rem !important;
+}
+
 .landing-container {
 	display: flex;
 	align-items: center;
@@ -85,8 +91,3 @@ nav {
 }
 
 
-.landing-p-dark {
-	border: white sold 2px;
-	color: white;
-	font-size: 2.5rem;
-}
