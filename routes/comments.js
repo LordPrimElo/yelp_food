@@ -54,7 +54,7 @@ router.put("/:commentId", isLoggedIn, isCommentOwner, async (req, res) => {
 		
 	} catch (err) {
 		req.flash("error", "Couldn't edit comment, please try again.")
-		res.redirect("/back")
+		res.redirect("back")
 	}
 })
 
@@ -68,7 +68,7 @@ router.delete("/:commentId", isLoggedIn, isCommentOwner, async (req, res) => {
 
 	} catch (err) {
 		req.flash("error", "Couldn't delete comment, please try again!")
-		res.redirect("/back")
+		res.redirect("back")
 	}
 })
 

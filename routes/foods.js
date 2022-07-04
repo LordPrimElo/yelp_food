@@ -46,7 +46,7 @@ router.post("/", isLoggedIn, async (req, res) => {
 		res.redirect("/foods/" + food_item._id)
 	} catch (err) {
 		req.flash("error", "Couldn't add food item, please try again.")
-		res.redirect("/back")
+		res.redirect("back")
 	}	
 })
 
@@ -142,7 +142,7 @@ router.delete("/:id", isLoggedIn, isFoodOwner, async (req, res) => {
 		
 	} catch (err) {
 		req.flash("error", "Couldn't delete food item, please try again!")
-		res.redirect("/back")
+		res.redirect("back")
 }})
 
 

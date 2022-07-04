@@ -17,28 +17,19 @@
 	const nav = document.querySelector("nav")
 
 	img.addEventListener("mouseover", function() {
-		console.log(img.getAttribute("src"))
 		img.setAttribute("src", "/img/FoodLogoWhite.png")
 		body.style.backgroundColor = "black"
-		p.style.borderColor = "white"
-		p.style.color = "white"
-		p.style.fontSize = "2.5rem"
+		p.classList.add("landing-p-dark")
 		nav.classList.add("navbar-dark", "bg-dark")
-		console.log(nav)
 
 	})
 
 	img.addEventListener("mouseleave", function() {
-		console.log(img.getAttribute("src"))
 		img.setAttribute("src", "/img/FoodLogo.png")
 		body.style.backgroundColor = "white"
-		p.style.borderColor = "black"
-		p.style.color = "black"
-		p.style.fontSize = "3rem"
+		p.classList.remove("landing-p-dark")
 		nav.classList.remove("navbar-dark", "bg-dark")
 	})
 
 </script>
-=======
->>>>>>> refs/remotes/origin/master
 <%- include("partials/footer") %>

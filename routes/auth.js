@@ -21,7 +21,7 @@ router.post("/login", passport.authenticate("local", {failureRedirect: "/login",
 		res.redirect("/foods")
 	} catch (err) {
 		req.flash("error", "Couldn't log you in :( \n Please try again!")
-		res.redirect("/back")
+		res.redirect("back")
 		console.log(err)
 
 	}
@@ -33,10 +33,10 @@ router.get("/logout", (req, res) => {
 	try {
 		req.logout(err => res.send(err))
 		req.flash("success", "Logged you out successfully! :D")
-		res.redirect("/back")
+		res.redirect("back")
 	} catch (err) {
 		req.flash("error", "Couldn't log you out :( \n Please try again!")
-		req.redirect("/back")
+		req.redirect("back")
 	}
 })
 
