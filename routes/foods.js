@@ -53,12 +53,68 @@ router.get("/new", isLoggedIn, (req, res) => {
 
 // Vote
 router.post("/vote", isLoggedIn, async (req, res) => {
-	console.log("Request body:", req.body)
-	
-	const food = await foodItem.findById(req.body.foodId)
-	console.log(food)
+	console.log("Request body:", req.body)	
 
-	res.json({food})
+	const food = await foodItem.findById(req.body.foodId)
+
+	const hasAlreadyUpvoted = food.upvotes.indexOf(req.user.username)
+	const hasAlreadyDownvoted = food.downvotes.indexOf(req.user.username)
+
+	const votingError = () => {
+		req.flash("error", "Please try voting again! We're sorry for the inconvenience :(")
+		res.redirect("/foods")
+	}
+
+	let response = {message: ""}
+
+	// Voting Logic
+	if (hasAlreadyUpvoted === -1 && hasAlreadyDownvoted === -1) {
+		if (req.body.voteType === "up") {
+			food.upvotes.push(req.user.username)
+			food.save()
+			response.message = "Upvote tallied!"
+
+		} else if (req.body.voteType === "down") {
+			food.downvotes.push(req.user.username)
+			food.save()
+			response.message = "Downvote tallied!"
+
+		} else {
+			votingError()
+		}
+	} else if (hasAlreadyUpvoted > -1) {
+		food.upvotes.splice(hasAlreadyUpvoted, 1)
+		if (req.body.voteType === "up") {
+			food.save()
+			response.message = "Upvote removed!"
+
+		} else if (req.body.voteType === "down") {
+			food.downvotes.push(req.user.username)
+			food.save()
+			response.message = "Changed to downvote!"
+
+		} else {
+			votingError()
+		}
+	} else if (hasAlreadyDownvoted > -1) {
+		food.downvotes.splice(hasAlreadyDownvoted, 1)
+		if (req.body.voteType === "up") {
+			food.upvotes.push(req.user.username)
+			food.save()
+			response.message = "Changed to upvote"
+
+		} else if (req.body.voteType === "down") {
+			food.save()
+			response.message = "Downvote removed!"
+
+		} else {
+			votingError()
+		}
+	} else {
+		votingError()
+	}
+
+	res.json(response)
 
 })
 
