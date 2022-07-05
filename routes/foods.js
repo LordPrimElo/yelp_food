@@ -63,6 +63,7 @@ router.post("/vote", isLoggedIn, async (req, res) => {
 	const votingError = () => {
 		req.flash("error", "Please try voting again! We're sorry for the inconvenience :(")
 		res.redirect("/foods")
+		response = {message: "err"}
 	}
 
 	let response = {message: ""}
@@ -72,40 +73,60 @@ router.post("/vote", isLoggedIn, async (req, res) => {
 		if (req.body.voteType === "up") {
 			food.upvotes.push(req.user.username)
 			food.save()
-			response.message = "Upvote tallied!"
+			response = {
+				message: "Upvote tallied!",
+				code: 1
+			}
 
 		} else if (req.body.voteType === "down") {
 			food.downvotes.push(req.user.username)
 			food.save()
-			response.message = "Downvote tallied!"
+			response = {
+				message: "Downvote tallied!",
+				code: -1
+			}
 
 		} else {
 			votingError()
 		}
 	} else if (hasAlreadyUpvoted > -1) {
 		food.upvotes.splice(hasAlreadyUpvoted, 1)
+
 		if (req.body.voteType === "up") {
 			food.save()
-			response.message = "Upvote removed!"
+			response = {
+				message: "Upvote removed!",
+				code: 0
+			}
 
 		} else if (req.body.voteType === "down") {
 			food.downvotes.push(req.user.username)
 			food.save()
-			response.message = "Changed to downvote!"
+			response = {
+				message: "Changed to downvote!",
+				code: -1
+			}
 
 		} else {
 			votingError()
 		}
 	} else if (hasAlreadyDownvoted > -1) {
 		food.downvotes.splice(hasAlreadyDownvoted, 1)
+
 		if (req.body.voteType === "up") {
 			food.upvotes.push(req.user.username)
 			food.save()
-			response.message = "Changed to upvote"
+			response = {
+				message: "Changed to upvote",
+				code: 1
+			}
 
 		} else if (req.body.voteType === "down") {
 			food.save()
-			response.message = "Downvote removed!"
+			response = {
+				message: "Downvote removed!",
+				code: 0
+			}
 
 		} else {
 			votingError()
@@ -113,6 +134,8 @@ router.post("/vote", isLoggedIn, async (req, res) => {
 	} else {
 		votingError()
 	}
+
+	response.score = food.upvotes.length - food.downvotes.length
 
 	res.json(response)
 
