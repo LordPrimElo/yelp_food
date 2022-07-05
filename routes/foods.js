@@ -85,6 +85,7 @@ router.get("/genre/:genre", async (req, res) => {
 	} catch (e) {console.log(e)}
 })
 
+
 // Vote
 router.post("/vote", isLoggedIn, async (req, res) => {
 	console.log(req.body)

@@ -1,0 +1,98 @@
+<%- include("partials/header") %>
+
+	<div class="container">
+		<div class="row mt-4">
+			<div class="col-6 show_image-container">
+					<img src="<%= food.image %>">
+			</div>
+			<div class="col-6 show_details-container">
+				<h1><%= food.title %></h1>
+				<p><%= food.description %></p>
+				<table class="table">
+				  <tbody>
+					  <tr>
+					  <th scope="row">Genre</th>
+					  <td><%= food.genre %></td>
+					</tr>
+					<tr>
+					  <th scope="row">Flavours</th>
+					  <td><%= food.flavours %></td>
+					</tr>
+					<tr>
+					  <th scope="row">Ingredients</th>
+					  <td><%= food.ingredients %></td>
+					</tr>
+					<tr>
+					  <th scope="row">Calories (Per serving amount)</th>
+					  <td><%= food.calories %></td>
+					</tr>
+					  <tr>
+					  <th scope="row">Preparation Time</th>
+					  <td><%= food.prepTime %> Minutes</td>
+					</tr>
+					  <tr>
+					  <th scope="row">Is this <%= food.title%> healthy?</th>
+					   <% if (food.isHealthy === true) { %>
+						  	<td>Yes! :D</td>
+						  <% } else { %>
+						  	<td>No :(</td>
+						  <% } %>
+					</tr>
+				  </tbody>
+				</table>
+
+				<% if (user && user.username) { %>				
+					<form action="/foods/<%= food._id %>/edit" method="GET">
+						<div class="d-grid gap-2 mx-auto">
+							<button class="btn btn-outline-info btn-lg mb-2">Edit</button>
+						</div>
+					</form>
+					<form action="/foods/<%= food._id %>?_method=DELETE" method="POST">
+						<div class="d-grid gap-2 mx-auto">
+							<button class="btn btn-outline-danger btn-lg mb-2">Delete</button>
+						</div>
+					</form>
+				<% } %>
+
+			</div>
+
+		</div>
+		<div class="row">
+			<form action="/foods/<%= food._id %>/comments/new" class="col-3">
+				<button class="btn btn-success btn-lg my-4">Add Comment</button>
+			</form>
+			<div class="col-2">
+				<button id="foods_show-upvote_btn" class="btn btn-outline-success btm-lg mt-3">+</button>
+				<span id="food_show-vote_score" class="mx-2">10</span>
+				<button id="foods_show-downvote_btn" class="btn btn-outline-danger btm-lg mt-3">-</button>
+			</div>
+		</div>
+		<% comments.forEach((comment) => { %>
+			<div class="row show_comment-container py-2 border">
+				<div class="col-2 border-end my-auto mx-auto">
+					<%= comment.owner.username %>
+				</div>
+
+
+				<% if (user && user.username === comment.owner.username) { %>
+					<div class="col-2 border-end my-auto mx-auto">
+						<a class="btn btn-sm btn-success w-75 p-0 my-1" href="/foods/<%= food._id %>/comments/<%= comment._id%>/edit">Edit</a>
+						<form class="w-75 my-1" action="/foods/<%= food._id %>/comments/<%= comment._id%>?_method=DELETE" method="POST">
+							<button class="btn btn-danger btn-sm w-100 p-0">Delete</button>
+						</form>
+							
+					</div>
+				<% } else { %>
+
+				<% } %>
+				
+
+				<div class="col-7 border-end my-auto">
+					<%= comment.text %>
+				</div>
+			</div>
+		<% }) %>
+		<div class="py-5"></div>
+</div>
+<script src="/js/foods_show.js"></script>
+<%- include("partials/footer") %>

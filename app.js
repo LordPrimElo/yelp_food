@@ -8,7 +8,7 @@ const app = express()
 const bodyParser = require("body-parser")
 const mongoose = require('mongoose');
 const methodOverride = require("method-override")
-const morgan = require("morgan")
+// const morgan = require("morgan")
 const passport = require("passport")
 const expressSession = require("express-session")
 const passportLocal = require("passport-local")
@@ -39,7 +39,7 @@ const { deleteMany } = require("./models/food_item");
 // DEVELOPMENT
 // =============================================
 // Morgan
-app.use(morgan("tiny"))
+// app.use(morgan("tiny"))
 
 // Seed the DB
 // const seed = require("./utils/seed")
@@ -63,6 +63,9 @@ mongoose.Promise = global.Promise
 // Express Config
 app.set("view engine", "ejs")
 app.use(express.static("public"))
+app.use(express.json({
+	type: ["application/json", "text/plain"]
+}))
 
 // Express Session Config
 app.use(expressSession({
