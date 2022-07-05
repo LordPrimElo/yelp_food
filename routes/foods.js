@@ -48,7 +48,7 @@ router.post("/", isLoggedIn, async (req, res) => {
 		res.redirect("/foods/" + food_item._id)
 	} catch (err) {
 		req.flash("error", "Couldn't add food item, please try again.")
-		res.redirect("back")
+		res.redirect("/foods")
 	}	
 })
 
@@ -87,6 +87,7 @@ router.get("/genre/:genre", async (req, res) => {
 
 // Vote
 router.post("/vote", isLoggedIn, async (req, res) => {
+	console.log(req.body)
 	res.json({
 		message: "Voted!"
 	})
@@ -95,8 +96,6 @@ router.post("/vote", isLoggedIn, async (req, res) => {
 
 // Show
 router.get("/:id", async (req, res) => {
-	
-	
 	try {
 		const food = await foodItem.findById(req.params.id).exec()
 		const comments = await Comment.find({foodId: req.params.id})
