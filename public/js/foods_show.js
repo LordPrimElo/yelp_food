@@ -12,15 +12,20 @@ const sendVote = async (voteType) => {
     const options = {
         method: "POST",
         headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({vote: "up"})
+            'Content-Type': 'application/json'
+        }
     }
     
     if (voteType === "up") {
-        options.body = JSON.stringify({vote: "up"})
+        options.body = JSON.stringify({
+            voteType,
+            foodId
+        })
     } else if (voteType === "down") {
-        options.body = JSON.stringify({vote: "down"})
+        options.body = JSON.stringify({
+            voteType,
+            foodId
+        })
     } else {
         throw "voteType must be 'up' or 'down'"
     }

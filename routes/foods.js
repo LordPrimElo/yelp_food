@@ -11,17 +11,11 @@ router.get("/", async (req, res) => {
 		const foodstuffs = await foodItem.find().exec()
 		res.render("foodstuffs", {foodstuffs})
 	} catch (err) {res.send(err)}
-	
-	
-	
-	
+
 })
 
 // Create
 router.post("/", isLoggedIn, async (req, res) => {
-	
-
-	
 	const genre = req.body.genre.toLowerCase()
 	
 	const newFoodItem = {
@@ -57,18 +51,19 @@ router.get("/new", isLoggedIn, (req, res) => {
 	res.render("foods_new")
 })
 
-// Search
-router.get("/search", async (req, res) => {
-	try {
-		const foodstuffs = await foodItem.find({
-			$text: {
-				$search: req.query.term
-			}
-		})
-		res.render("foodstuffs", {foodstuffs})
-			
-	} catch (err) {res.send("search broke => " + err)}
+// Vote
+router.post("/vote", isLoggedIn, async (req, res) => {
+	console.log("Request body:", req.body)
+	
+	const food = await foodItem.findById(req.body.foodId)
+	console.log(food)
+
+	res.json({food})
+
 })
+
+
+
 
 
 // Genre (Show but *different*)
@@ -85,15 +80,18 @@ router.get("/genre/:genre", async (req, res) => {
 	} catch (e) {console.log(e)}
 })
 
-
-// Vote
-router.post("/vote", isLoggedIn, async (req, res) => {
-	res.json({
-		message: "Voted!"
-	})
-	console.log(req.body)
+// Search
+router.get("/search", async (req, res) => {
+	try {
+		const foodstuffs = await foodItem.find({
+			$text: {
+				$search: req.query.term
+			}
+		})
+		res.render("foodstuffs", {foodstuffs})
+			
+	} catch (err) {res.send("search broke => " + err)}
 })
-
 
 // Show
 router.get("/:id", async (req, res) => {
