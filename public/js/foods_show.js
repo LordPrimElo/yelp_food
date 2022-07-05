@@ -3,6 +3,7 @@
 //==============================================
 const upvoteBtn = document.getElementById("foods_show-upvote_btn")
 const downvoteBtn = document.getElementById("foods_show-downvote_btn")
+const score = document.getElementById("food_show-vote_score")
 
 //==============================================
 // HELPER FUNCTIONS
@@ -36,9 +37,34 @@ const sendVote = async (voteType) => {
         return data.json()
     })
     .then(res => {
-        console.warn(res)
+        handleScore(res.score, res.code)
+        
+
     })
     .catch(err => console.log(err))
+}
+
+
+const handleScore = (newScore, code) => {
+    score.innerText = newScore
+    if (code === 0) {
+        upvoteBtn.classList.remove("btn-success")
+        upvoteBtn.classList.add("btn-outline-success")
+        downvoteBtn.classList.remove("btn-danger")
+        downvoteBtn.classList.add("btn-outline-danger")
+    } else if (code === 1) {
+        upvoteBtn.classList.add("btn-success")
+        upvoteBtn.classList.remove("btn-outline-success")
+        downvoteBtn.classList.remove("btn-danger")
+        downvoteBtn.classList.add("btn-outline-danger")
+    } else if (code === -1) {
+        upvoteBtn.classList.remove("btn-success")
+        upvoteBtn.classList.add("btn-outline-success")
+        downvoteBtn.classList.add("btn-danger")
+        downvoteBtn.classList.remove("btn-outline-danger")
+    } else {
+        res.send("bruh, how the frick did you get here?")
+    }
 }
 
 //==============================================
@@ -46,6 +72,7 @@ const sendVote = async (voteType) => {
 //==============================================
 upvoteBtn.addEventListener("click", async function() {
     sendVote("up")
+    
 })
 
 downvoteBtn.addEventListener("click", async function() {
