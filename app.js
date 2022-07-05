@@ -33,6 +33,8 @@ const foodItem = require("./models/food_item")
 const Comment = require("./models/comment")
 const User = require("./models/user");
 
+// Util Imports / Helper Functions
+const isLoggedIn = require("./utils/isLoggedIn")
 
 // =============================================
 // DEVELOPMENT
@@ -62,9 +64,10 @@ mongoose.Promise = global.Promise
 // Express Config
 app.set("view engine", "ejs")
 app.use(express.static("public"))
-// app.use(express.json({
-// 	type: ["application/json", "text/plain"]
-// }))
+app.use(express.json({
+	type: ["application/json"]
+}))
+app.use(express.urlencoded({extended: true}));
 
 // Express Session Config
 app.use(expressSession({
@@ -98,6 +101,7 @@ app.use((req, res, next) => {
 	res.locals.successMessage = req.flash("success")
 	next()
 })
+
 
 
 

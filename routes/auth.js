@@ -22,7 +22,7 @@ router.post("/login", passport.authenticate("local", {failureRedirect: "/login",
 		res.redirect("/foods")
 	} catch (err) {
 		req.flash("error", "Couldn't log you in :( \n Please try again!")
-		res.redirect("/foods")
+		res.redirect("back")
 		console.log(err)
 
 	}
