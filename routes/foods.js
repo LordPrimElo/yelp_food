@@ -33,7 +33,8 @@ router.post("/", isLoggedIn, async (req, res) => {
 			username: req.body.username
 		},
 		upvotes: [req.user.username],
-		downvotes: []
+		downvotes: [],
+		savedByUsers: []
 	}
 	
 	try {
@@ -141,8 +142,76 @@ router.post("/vote", isLoggedIn, async (req, res) => {
 
 })
 
+// Saved
+router.get("/saved", isLoggedIn, async (req, res) => {
+	// Get foods saved by user	
+	const savedFoods = await foodItem.find({savedByUsers: req.user.username}).exec()
 
+	// Show them on index page
+	res.render("foodstuffs", {foodstuffs: savedFoods})
+	console.log(await foodItem.find({savedByUsers: req.user.username}).exec())
+}) 
 
+// Save
+router.put("/:id/save", isLoggedIn, async (req, res) => {
+	console.log(req.body)
+	const food = await foodItem.findById(req.params.id).exec()
+
+	const isSavedByUser = food.savedByUsers.indexOf(req.user.username)
+	console.log(isSavedByUser)
+	console.log(food)
+	
+	if (isSavedByUser === -1) {
+
+		const newSaved = { 
+			title: food.title,
+			description: food.description,
+			flavours: food.flavours,
+			genre: food.genre,
+			prepTime: food.prepTime,
+			ingredients: food.ingredients,
+			calories: food.calories,
+			isHealthy: !!food.isHealthy,
+			upvotes: food.upvotes,
+			downvotes: food.downvotes,
+			image: food.image,
+			savedByUsers: food.savedByUsers.concat(req.user.username)
+		}
+
+		await foodItem.findByIdAndUpdate(req.params.id, newSaved, {new: true}).exec()
+		req.flash("success", "Saved this food item!")
+		res.redirect("/foods/saved")
+
+	} else if (isSavedByUser > -1) {
+		food.savedByUsers.splice(isSavedByUser, 1)
+		const newSaved = {
+			title: food.title,
+			description: food.description,
+			flavours: food.flavours,
+			genre: food.genre.toLowerCase(),
+			prepTime: food.prepTime,
+			ingredients: food.ingredients,
+			calories: food.calories,
+			isHealthy: !!food.isHealthy,
+			image: food.image,
+			upvotes: food.upvotes,
+			downvotes: food.downvotes,
+			savedByUsers: food.savedByUsers
+		}
+
+		await foodItem.findByIdAndUpdate(req.params.id, newSaved, {new: true}).exec()
+		req.flash("error", "Unsaved this food item!")
+		res.redirect("/foods/saved")
+
+	} else {
+		req.flash("error", "You have already saved that!")
+		res.redirect("/foods/saved")
+	}
+	
+
+	
+
+})
 
 
 // Genre (Show but *different*)
@@ -204,7 +273,10 @@ router.put("/:id", isLoggedIn, isFoodOwner, async (req, res) => {
 			ingredients: req.body.ingredients,
 			calories: req.body.calories,
 			isHealthy: !!req.body.isHealthy,
-			image: req.body.image
+			upvotes: req.body.upvotes,
+			downvotes: req.body.downvotes,
+			image: req.body.image,
+			savedByUsers: req.body.savedByUsers
 		}
 
 	try {

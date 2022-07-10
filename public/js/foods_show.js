@@ -4,6 +4,8 @@
 const upvoteBtn = document.getElementById("foods_show-upvote_btn")
 const downvoteBtn = document.getElementById("foods_show-downvote_btn")
 const score = document.getElementById("food_show-vote_score")
+const saveBtn = document.getElementById("save-btn")
+const unsaveBtn = document.getElementById("unsave-btn")
 
 //==============================================
 // HELPER FUNCTIONS
@@ -67,6 +69,22 @@ const handleScore = (newScore, code) => {
     }
 }
 
+const save = async () => {
+    const options = {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Headers": "*"
+        },
+        body: JSON.stringify({foodId})
+    }
+
+    await fetch(`/foods/${foodId}/save`, options)
+    .then(data => data.json())
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
+
 //==============================================
 // ADD EVENT LISTENERS
 //==============================================
@@ -78,3 +96,11 @@ upvoteBtn.addEventListener("click", async function() {
 downvoteBtn.addEventListener("click", async function() {
     sendVote("down")
 }) 
+
+saveBtn.addEventListener("click", async function() {
+    save()
+})
+
+unsaveBtn.addEventListener("click", async function() {
+    save()
+})
