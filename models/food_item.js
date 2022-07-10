@@ -18,7 +18,8 @@ const foodSchema = new mongoose.Schema({
 		username: String
 	},
 	upvotes: [String],
-	downvotes: [String]
+	downvotes: [String],
+	savedByUsers: [String]
 })
 
 foodSchema.index({
