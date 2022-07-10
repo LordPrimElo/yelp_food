@@ -158,8 +158,9 @@ router.put("/:id/save", isLoggedIn, async (req, res) => {
 	const food = await foodItem.findById(req.params.id).exec()
 
 	const isSavedByUser = food.savedByUsers.indexOf(req.user.username)
-	console.log(isSavedByUser)
+	
 	console.log(food)
+	console.log(isSavedByUser)
 	
 	if (isSavedByUser === -1) {
 
@@ -184,18 +185,18 @@ router.put("/:id/save", isLoggedIn, async (req, res) => {
 
 	} else if (isSavedByUser > -1) {
 		food.savedByUsers.splice(isSavedByUser, 1)
-		const newSaved = {
+		const newSaved = { 
 			title: food.title,
 			description: food.description,
 			flavours: food.flavours,
-			genre: food.genre.toLowerCase(),
+			genre: food.genre,
 			prepTime: food.prepTime,
 			ingredients: food.ingredients,
 			calories: food.calories,
 			isHealthy: !!food.isHealthy,
-			image: food.image,
 			upvotes: food.upvotes,
 			downvotes: food.downvotes,
+			image: food.image,
 			savedByUsers: food.savedByUsers
 		}
 

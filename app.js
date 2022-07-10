@@ -20,6 +20,7 @@ try {
 } catch (e) {
 	console.log("Could not import config. Probable Cause: NOT WORKING LOCALLY, ya dum dum")
 	console.log(e)
+	
 }
 
 // Route Imports
