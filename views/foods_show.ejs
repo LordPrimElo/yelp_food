@@ -72,9 +72,13 @@
 					<button id="foods_show-downvote_btn" class="btn btn-danger btm-lg mt-3">-</button>
 				<% } else if (user) { %>
 					<button id="foods_show-downvote_btn" class="btn btn-outline-danger btm-lg mt-3">-</button>
+				<% } %>
+				
+				<% if (user && food.savedByUsers.indexOf(user.username) > -1) { %> 
+					<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST"><button type="submit" id="unsave-btn" class="btn btn-lg btn-outline-info">Unsave This Item!</button></form>
+				<% } else if (user)  {%> 
+					<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST"><button type="submit" id="save-btn" class="btn btn-lg btn-outline-success">Save This Item!</button></form>
 				<% } %> 
-
-
 			</div>
 		</div>
 		<% comments.forEach((comment) => { %>
@@ -105,5 +109,7 @@
 		<div class="py-5"></div>
 </div>
 <script src="/js/foods_show.js"></script>
-<script>var foodId = "<%= food._id %>"</script>
+<script>
+	var foodId = "<%= food._id %>"
+</script>
 <%- include("partials/footer") %>
