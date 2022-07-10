@@ -52,6 +52,19 @@
 							<button class="btn btn-outline-danger btn-lg mb-2">Delete</button>
 						</div>
 					</form>
+					<% if (user && food.savedByUsers.indexOf(user.username) > -1) { %> 
+						<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST">
+							<div class="d-grid gap-2 mx-auto">
+								<button type="submit" id="unsave-btn" class="btn btn-lg btn-outline-warning">Unsave This Item!</button>
+							</div>
+						</form>
+					<% } else if (user)  {%> 
+						<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST">
+							<div class="d-grid gap-2 mx-auto">
+								<button type="submit" id="save-btn" class="btn btn-lg btn-outline-success">Save This Item!</button>
+							</div>
+						</form>
+					<% } %> 
 				<% } %>
 
 			</div>
@@ -73,12 +86,6 @@
 				<% } else if (user) { %>
 					<button id="foods_show-downvote_btn" class="btn btn-outline-danger btm-lg mt-3">-</button>
 				<% } %>
-				
-				<% if (user && food.savedByUsers.indexOf(user.username) > -1) { %> 
-					<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST"><button type="submit" id="unsave-btn" class="btn btn-lg btn-outline-info">Unsave This Item!</button></form>
-				<% } else if (user)  {%> 
-					<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST"><button type="submit" id="save-btn" class="btn btn-lg btn-outline-success">Save This Item!</button></form>
-				<% } %> 
 			</div>
 		</div>
 		<% comments.forEach((comment) => { %>
