@@ -71,20 +71,20 @@
 
 		</div>
 		<div class="row">
-			<form action="/foods/<%= food._id %>/comments/new" class="col-3">
-				<button class="btn btn-success btn-lg my-4">Add Comment</button>
+			<form action="/foods/<%= food._id %>/comments/new" class="col-3 mx-2">
+				<button class="btn btn-success btn-lg">Add Comment</button>
 			</form>
-			<div class="col-2">
+			<div class="col-2" id="foods_show-vote-container">
 				<% if (user && food.upvotes.indexOf(user.username) > -1) { %>
-					<button id="foods_show-upvote_btn" class="btn btn-success btm-lg mt-3">+</button>
+					<button id="foods_show-upvote_btn" class="btn btn-success btm-lg mt-3 mx-1">+</button>
 				<% } else if (user) { %>
-					<button id="foods_show-upvote_btn" class="btn btn-outline-success btm-lg mt-3">+</button>
+					<button id="foods_show-upvote_btn" class="btn btn-outline-success btm-lg mt-3 mx-1">+</button>
 				<% } %> 
 				<span id="food_show-vote_score" class="mx-2"><%= food.upvotes.length - food.downvotes.length %></span>
 				<% if (user && food.downvotes.indexOf(user.username) > -1) { %>
-					<button id="foods_show-downvote_btn" class="btn btn-danger btm-lg mt-3">-</button>
+					<button id="foods_show-downvote_btn" class="btn btn-danger btm-lg mt-3 mx-1">-</button>
 				<% } else if (user) { %>
-					<button id="foods_show-downvote_btn" class="btn btn-outline-danger btm-lg mt-3">-</button>
+					<button id="foods_show-downvote_btn" class="btn btn-outline-danger btm-lg mt-3 mx-1">-</button>
 				<% } %>
 			</div>
 		</div>
