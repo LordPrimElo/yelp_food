@@ -34,7 +34,8 @@ router.post("/", isLoggedIn, async (req, res) => {
 		},
 		upvotes: [req.user.username],
 		downvotes: [],
-		savedByUsers: []
+		savedByUsers: [],
+		recipe: req.body.recipe
 	}
 	
 	try {
@@ -176,7 +177,8 @@ router.put("/:id/save", isLoggedIn, async (req, res) => {
 			upvotes: food.upvotes,
 			downvotes: food.downvotes,
 			image: food.image,
-			savedByUsers: food.savedByUsers.concat(req.user.username)
+			savedByUsers: food.savedByUsers.concat(req.user.username),
+			recipe: food.recipe
 		}
 
 		await foodItem.findByIdAndUpdate(req.params.id, newSaved, {new: true}).exec()
@@ -197,7 +199,8 @@ router.put("/:id/save", isLoggedIn, async (req, res) => {
 			upvotes: food.upvotes,
 			downvotes: food.downvotes,
 			image: food.image,
-			savedByUsers: food.savedByUsers
+			savedByUsers: food.savedByUsers,
+			recipe: food.recipe
 		}
 
 		await foodItem.findByIdAndUpdate(req.params.id, newSaved, {new: true}).exec()
@@ -277,7 +280,8 @@ router.put("/:id", isLoggedIn, isFoodOwner, async (req, res) => {
 			upvotes: req.body.upvotes,
 			downvotes: req.body.downvotes,
 			image: req.body.image,
-			savedByUsers: req.body.savedByUsers
+			savedByUsers: req.body.savedByUsers,
+			recipe: req.body.recipe
 		}
 
 	try {
