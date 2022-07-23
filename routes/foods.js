@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const foodItem = require("../models/food_item")
 const Comment = require("../models/comment")
+const User = require("../models/user")
 const isLoggedIn = require("../utils/isLoggedIn")
 const isFoodOwner = require("../utils/isFoodOwner")
 
@@ -250,7 +251,8 @@ router.get("/:id", async (req, res) => {
 	try {
 		const food = await foodItem.findById(req.params.id).exec()
 		const comments = await Comment.find({foodId: req.params.id})
-		res.render("foods_show", {food, comments})
+		const owner = await User.findById(food.owner.id).exec().username
+		res.render("foods_show", {food, comments, owner})
 		} catch (err) {res.send("SHOW" + err)}
 })
 
