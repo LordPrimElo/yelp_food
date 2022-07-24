@@ -251,8 +251,8 @@ router.get("/:id", async (req, res) => {
 	try {
 		const food = await foodItem.findById(req.params.id).exec()
 		const comments = await Comment.find({foodId: req.params.id})
-		const owner = await User.findById(food.owner.id).exec().username
-		res.render("foods_show", {food, comments, owner})
+		const user = await User.findById(food.owner.id).exec()
+		res.render("foods_show", {food, comments, owner: user.username})
 		} catch (err) {res.send("SHOW" + err)}
 })
 
