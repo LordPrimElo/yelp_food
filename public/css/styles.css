@@ -35,17 +35,9 @@ nav {
 	line-height: 1.4;
 }
 
-/* foods_show */
 .show_image-container img {
 	max-width: 80%;
 	border-radius: 2rem;
-}
-
-
-.landing-p-dark {
-	border-color: white !important; 
-	color: white;
-	font-size: 2.5rem !important;
 }
 
 .landing-container {
@@ -61,20 +53,21 @@ nav {
 
 }
 
-.landing-container h1 {
-	font-weight: 500;
-	font-size: 8rem;
-}
-
 .landing-container p {
 	font-weight: 300;
 	font-style: italic;
-	font-size: 3rem;
-	margin-top: -1.5rem;
+	font-size: 6vw;
+	margin-top: -4vw;
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
 	border: black solid 2px;
 	transition: 0.5s;
+}
+
+.landing-p-dark {
+	border-color: white !important; 
+	color: white;
+	font-size: 5vw !important;
 }
 
 .landing-container div {
@@ -84,15 +77,19 @@ nav {
 }
 
 .landing-container img {
+	width: 75vw;
+	max-width: 800px;
 	transition: 1.5s;
 }
 
 .landing-container img:hover {
-	width: 650px;
+	width: 90vw;
+	max-width: 950px;
 	height: auto;
 
 }
 
+/* Foods Show */
 #foods_show-vote-container {
 	display: flex;
 	align-items: center;	
@@ -106,3 +103,66 @@ nav {
 	font-family: 'Koulen', cursive;
 }
 
+@media screen and (max-width: 670px) {
+		
+	.landing-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		height: 80%;
+		font-family: "Josefin Sans";
+		margin: 0% 10%;
+		flex-wrap: none;
+		margin-top: 7.5%;
+	
+	}
+	
+	
+	.landing-container p {
+		font-weight: 300;
+		font-style: italic;
+		font-size: 7vw;
+		padding-left: 1.5vw;
+		padding-right: 1.5vw;
+		border: black solid 2px;
+		transition: 0.5s;
+	}
+
+	.landing-p-dark {
+		border-color: white !important; 
+		color: white;
+		font-size: 5.75vw !important;
+	}
+	
+	.landing-container div {
+		display: flex;
+		text-align: center;
+	
+	}
+	
+}
+
+@media screen and (min-width: 1300px) {
+
+	.landing-container {
+		margin-top: 5%;
+	}
+
+	.landing-container p {
+		font-weight: 300;
+		font-style: italic;
+		font-size: 4.5vw;
+		margin-top: -2vw;
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+		border: black solid 2px;
+		transition: 0.5s;
+	}
+	
+	.landing-p-dark {
+		border-color: white !important; 
+		color: white;
+		font-size: 3.6vw !important;
+	}
+}
