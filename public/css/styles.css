@@ -6,11 +6,16 @@ nav {
 	transition: 2s;
 }
 
+.row {
+	display: flex;
+	justify-content: space-around;
+}
+
 .card {
 	padding: 0;
 	border-radius: 1rem;
 	width: 30%;
-	
+	min-width: 300px;
 
 }
 
@@ -166,3 +171,26 @@ nav {
 		font-size: 3.6vw !important;
 	}
 }
+
+/* @media screen and (max-width: 995px) {
+	card-img {
+		width: 100%;
+		height: 20rem;
+		object-fit: cover;
+		border-radius: 1rem;
+		padding: 0.5rem;
+		
+	}
+	
+	.card-title {
+		text-align: center;
+		font-family: 'pacifico', sans-serif;
+		font-weight: 400;
+		font-size: 1.8rem;
+	}
+	
+	.card-text {
+		font-family: 'Signika Negative', sans-serif;
+		line-height: 1.4;
+	}
+} */
