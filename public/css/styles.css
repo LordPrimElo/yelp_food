@@ -6,9 +6,9 @@ nav {
 	transition: 2s;
 }
 
-.row {
+#foodstuffs_row {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-evenly;
 }
 
 .card {
@@ -38,11 +38,6 @@ nav {
 .card-text {
 	font-family: 'Signika Negative', sans-serif;
 	line-height: 1.4;
-}
-
-.show_image-container img {
-	max-width: 80%;
-	border-radius: 2rem;
 }
 
 .landing-container {
@@ -108,6 +103,17 @@ nav {
 	font-family: 'Koulen', cursive;
 }
 
+.show_image-container {
+	display: flex;
+	justify-content: center;
+}
+
+.show_image-container img {
+	max-width: 80%;
+	max-height: 30vw;
+	border-radius: 2rem;
+}
+
 @media screen and (max-width: 670px) {
 		
 	.landing-container {
@@ -171,26 +177,3 @@ nav {
 		font-size: 3.6vw !important;
 	}
 }
-
-/* @media screen and (max-width: 995px) {
-	card-img {
-		width: 100%;
-		height: 20rem;
-		object-fit: cover;
-		border-radius: 1rem;
-		padding: 0.5rem;
-		
-	}
-	
-	.card-title {
-		text-align: center;
-		font-family: 'pacifico', sans-serif;
-		font-weight: 400;
-		font-size: 1.8rem;
-	}
-	
-	.card-text {
-		font-family: 'Signika Negative', sans-serif;
-		line-height: 1.4;
-	}
-} */
