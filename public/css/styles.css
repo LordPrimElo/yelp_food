@@ -90,12 +90,14 @@ nav {
 }
 
 /* Foods Show */
+
 #foods_show-vote-container {
 	display: flex;
 	align-items: center;	
 	justify-content: center;
 	font-size: 2rem;
 	margin-top: -1.75rem;
+	margin-left: 45vw;
 }
 
 #food_show-vote_score {
