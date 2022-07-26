@@ -60,13 +60,13 @@
 					<% if (user && food.savedByUsers.indexOf(user.username) > -1) { %> 
 						<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST">
 							<div class="d-grid gap-2 mx-auto">
-								<button type="submit" id="unsave-btn" class="btn btn-lg btn-outline-warning">Unsave This Item!</button>
+								<button type="submit" id="unsave-btn" class="btn btn-lg btn-outline-warning mb-2">Unsave This Item!</button>
 							</div>
 						</form>
 					<% } else if (user)  {%> 
 						<form action="/foods/<%= food._id %>/save?_method=PUT" method="POST">
 							<div class="d-grid gap-2 mx-auto">
-								<button type="submit" id="save-btn" class="btn btn-lg btn-outline-success">Save This Item!</button>
+								<button type="submit" id="save-btn" class="btn btn-lg btn-outline-success mb-2">Save This Item!</button>
 							</div>
 						</form>
 					<% } %> 
@@ -82,7 +82,7 @@
 
 		</div>
 		<div class="row">
-			<form action="/foods/<%= food._id %>/comments/new" class="col-3 mx-2">
+			<form action="/foods/<%= food._id %>/comments/new" class="col-3 mx-2 my-3">
 				<button class="btn btn-success btn-lg">Add Comment</button>
 			</form>
 			<div class="col-2" id="foods_show-vote-container">
