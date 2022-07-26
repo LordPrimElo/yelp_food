@@ -88,19 +88,59 @@ const save = async () => {
 //==============================================
 // ADD EVENT LISTENERS
 //==============================================
-upvoteBtn.addEventListener("click", async function() {
-    sendVote("up")
+if (upvoteBtn !== null) {
+    upvoteBtn.addEventListener("click", async function() {
+        sendVote("up")
+        const table = document.getElementsByClassName("show_details-container")[0]
+        const image = document.getElementsByClassName("show_image-container")[0]
+        console.log(table)
+        console.warn(image)
+    })
+
+    downvoteBtn.addEventListener("click", async function() {
+        sendVote("down")
+    }) 
+
+}
+
+if (saveBtn !== null) {
+    saveBtn.addEventListener("click", async function() {
+        save()
+    })
+}
+
+if (unsaveBtn !== null) {
+    unsaveBtn.addEventListener("click", async function() {
+        save()
+    })
+}
+ 
+
     
-})
 
-downvoteBtn.addEventListener("click", async function() {
-    sendVote("down")
-}) 
 
-saveBtn.addEventListener("click", async function() {
-    save()
-})
+//===============================================
+// MOBILE RESPONSIVENESS FEATURES
+//===============================================
 
-unsaveBtn.addEventListener("click", async function() {
-    save()
+// VARIABLE DECLARATION
+const table = document.getElementsByClassName("show_details-container")[0]
+const image = document.getElementsByClassName("show_image-container")[0]
+
+// HELPER FUNCTIONS
+const mobileFriendMaker = () => {
+    if (document.body.clientWidth < 670) {
+        
+        table.classList.remove("col-6")
+        table.classList.add("row")
+        
+        image.classList.add("show_image-container-mobile")
+        
+    } else {
+        console.error("THIS NOT WORK? WHY")
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    mobileFriendMaker()
 })
