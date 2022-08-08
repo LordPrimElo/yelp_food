@@ -56,8 +56,6 @@ router.get("/new", isLoggedIn, (req, res) => {
 
 // Vote
 router.post("/vote", isLoggedIn, async (req, res) => {
-	console.log("Request body:", req.body)	
-
 	const food = await foodItem.findById(req.body.foodId)
 
 	const hasAlreadyUpvoted = food.upvotes.indexOf(req.user.username)
@@ -151,18 +149,13 @@ router.get("/saved", isLoggedIn, async (req, res) => {
 
 	// Show them on index page
 	res.render("foodstuffs", {foodstuffs: savedFoods})
-	console.log(await foodItem.find({savedByUsers: req.user.username}).exec())
 }) 
 
 // Save
 router.put("/:id/save", isLoggedIn, async (req, res) => {
-	console.log(req.body)
 	const food = await foodItem.findById(req.params.id).exec()
 
 	const isSavedByUser = food.savedByUsers.indexOf(req.user.username)
-	
-	console.log(food)
-	console.log(isSavedByUser)
 	
 	if (isSavedByUser === -1) {
 
@@ -301,7 +294,6 @@ router.put("/:id", isLoggedIn, isFoodOwner, async (req, res) => {
 router.delete("/:id", isLoggedIn, isFoodOwner, async (req, res) => {
 	try {
 		const deletedFoodItem = await foodItem.findByIdAndDelete(req.params.id).exec()
-		console.log("Deleted: ", deletedFoodItem)
 		req.flash("success", "You have become Death, the destroyer of food items...")
 		res.redirect("/foods")
 		
