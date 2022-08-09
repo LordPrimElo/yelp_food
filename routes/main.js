@@ -10,7 +10,9 @@ router.get("/account", isLoggedIn, (req, res) => {
 	res.render("account")
 })
 
-
+router.get("*", (req, res) => {
+	res.redirect("/")
+})
 
 
 module.exports = router
