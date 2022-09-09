@@ -3,39 +3,40 @@
 // =============================================
 
 // NPM Imports
-const express =  require("express")
-const app = express()
-const bodyParser = require("body-parser")
-const mongoose = require('mongoose');
-const methodOverride = require("method-override")
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 // const morgan = require("morgan")
-const passport = require("passport")
-const expressSession = require("express-session")
-const passportLocal = require("passport-local")
-const flash = require("connect-flash")
+const passport = require("passport");
+const expressSession = require("express-session");
+const passportLocal = require("passport-local");
+const flash = require("connect-flash");
 
 // Config Imports
 try {
-	var config = require("./config")
+  var config = require("./config");
 } catch (e) {
-	console.log("Could not import config. Probable Cause: NOT WORKING LOCALLY, ya dum dum")
-	console.log(e)
-	
+  console.log(
+    "Could not import config. Probable Cause: NOT WORKING LOCALLY, ya dum dum"
+  );
+  console.log(e);
 }
 
 // Route Imports
-const foodRoutes = require("./routes/foods")
-const commentRoutes = require("./routes/comments")
-const mainRoutes = require("./routes/main")
-const authRoutes = require("./routes/auth")
+const foodRoutes = require("./routes/foods");
+const commentRoutes = require("./routes/comments");
+const mainRoutes = require("./routes/main");
+const authRoutes = require("./routes/auth");
 
 // Model Imports
-const foodItem = require("./models/food_item")
-const Comment = require("./models/comment")
+const foodItem = require("./models/food_item");
+const Comment = require("./models/comment");
 const User = require("./models/user");
 
 // Util Imports / Helper Functions
-const isLoggedIn = require("./utils/isLoggedIn")
+const isLoggedIn = require("./utils/isLoggedIn");
 
 // =============================================
 // DEVELOPMENT
@@ -47,98 +48,100 @@ const isLoggedIn = require("./utils/isLoggedIn")
 // const seed = require("./utils/seed")
 // seed()
 
-
 // =============================================
 // CONFIGRATION
 // =============================================
 // Connect to DB
 try {
-	mongoose.connect(config.db.connection)
+  mongoose.connect(config.db.connection);
 } catch (e) {
-	console.log("Could not connect using config. Probable Cause: NOT WORKING LOCALLY, dumbass")
-	console.log(e)
-	mongoose.connect(process.env.DB_CONNECTION_STRING)
+  console.log(
+    "Could not connect using config. Probable Cause: NOT WORKING LOCALLY, dumbass"
+  );
+  console.log(e);
+  mongoose.connect(process.env.DB_CONNECTION_STRING);
 }
 
-mongoose.Promise = global.Promise
+mongoose.Promise = global.Promise;
 
 // Express Config
-app.set("view engine", "ejs")
-app.use(express.static("public"))
-app.use(express.json({
-	type: ["application/json"]
-}))
-app.use(express.urlencoded({extended: true}));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(
+  express.json({
+    type: ["application/json"],
+  })
+);
+app.use(express.urlencoded({ extended: true }));
 
 // Express Session Config
-app.use(expressSession({
-	secret: process.env.ES_SECRET || config.db.expressSession.secret,
-	resave: false,
-	saveUninitialized: false
-}))
+app.use(
+  expressSession({
+    secret: process.env.ES_SECRET || config.db.expressSession.secret,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // Body Parser Config
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Method Override Config
-app.use(methodOverride("_method"))
+app.use(methodOverride("_method"));
 
 // Connect Flash Config
-app.use(flash())
+app.use(flash());
 
 // Passport Config
-app.use(passport.initialize())
-app.use(passport.session()) // Session persistance
-passport.serializeUser(User.serializeUser()) 	// Encodes data into the session (passport-local-mongoose)
-passport.deserializeUser(User.deserializeUser())// Decodes data from the session (passport-local-mongoose)
-const LocalStrategy = passportLocal.Strategy
-passport.use(new LocalStrategy(User.authenticate()))
+app.use(passport.initialize());
+app.use(passport.session()); // Session persistance
+passport.serializeUser(User.serializeUser()); // Encodes data into the session (passport-local-mongoose)
+passport.deserializeUser(User.deserializeUser()); // Decodes data from the session (passport-local-mongoose)
+const LocalStrategy = passportLocal.Strategy;
+passport.use(new LocalStrategy(User.authenticate()));
 
 // State Config
 app.use((req, res, next) => {
-	res.locals.user = req.user
-	res.locals.errorMessage = req.flash("error")
-	res.locals.successMessage = req.flash("success")
-	next()
-})
-
-
-
+  res.locals.user = req.user;
+  res.locals.errorMessage = req.flash("error");
+  res.locals.successMessage = req.flash("success");
+  next();
+});
 
 // Routes Config
-app.use("/foods", foodRoutes)
-app.use("/foods/:id/comments", commentRoutes)
-app.use(authRoutes)
-app.use(mainRoutes)
+app.use("/foods", foodRoutes);
+app.use("/foods/:id/comments", commentRoutes);
+app.use(authRoutes);
+app.use(mainRoutes);
 
 //==============================================
 // Sign Up CREATE (Doesn't work as a router POST route [don't know why?] so it is here)
 app.post("/signup", async (req, res) => {
-	try {
-		const newUser = await User.register(new User({
-			username: req.body.username,
-			email: req.body.email
-			}), req.body.password)
-		
-		passport.authenticate("local")(req, res, () => {
-				req.flash("success", `Signed you up as ${newUser.username}! :D`)
-				res.redirect("/foods")
-		})
+  try {
+    const newUser = await User.register(
+      new User({
+        username: req.body.username,
+        email: req.body.email,
+      }),
+      req.body.password
+    );
 
-		
-		
-	} catch (err) {
-		req.flash("error", `Couldn't sign you up :( \n Please try again!`)
-		res.redirect("/foods")
-		console.log(err)
-	}
-})
+    passport.authenticate("local")(req, res, () => {
+      req.flash("success", `Signed you up as ${newUser.username}! :D`);
+      res.redirect("/foods");
+    });
+  } catch (err) {
+    req.flash("error", `Couldn't sign you up :( \n Please try again!`);
+    res.redirect("/foods");
+    console.log(err);
+  }
+});
 //==============================================
 
 // =============================================
 // LISTEN
 // =============================================
 app.listen(process.env.PORT || 3000, () => {
-	console.log("Yelp ripoff runnin' boys!")
-})
+  console.log("Yelp ripoff runnin' boys!");
+});
